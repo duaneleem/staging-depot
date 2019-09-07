@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Provide an additional variable to products.
+ * Provide an additional variables to products.
  *
  * @link       https://duaneleem.com
  * @since      1.0.0
  *
  * @package    Staging_Depot
- * @subpackage Staging_Depot/admin/partials
+ * @subpackage Staging_Depot/includes/ezrentout
  */
 
 if (!class_exists("Staging_Depot_EZRentOut")) {
@@ -18,7 +18,7 @@ if (!class_exists("Staging_Depot_EZRentOut")) {
     public function add_field_add_to_cart() {
       $args = array(
         'label' => 'EZRenOut Add to Cart', // Text in the label in the editor.
-        'placeholder' => '', // Give examples or suggestions as placeholder
+        'placeholder' => 'ezr-cart-widget-item-304', // Give examples or suggestions as placeholder
         'class' => '',
         'style' => '',
         'wrapper_class' => '',
@@ -26,10 +26,10 @@ if (!class_exists("Staging_Depot_EZRentOut")) {
         'id' => 'ezrentout_add_to_cart', // required, will be used as meta_key
         'name' => 'ezrentout_add_to_cart', // name will be set automatically from id if empty
         'type' => '',
-        'desc_tip' => '',
+        'desc_tip' => true,
         'data_type' => '',
         'custom_attributes' => '', // array of attributes you want to pass 
-        'description' => ''
+        'description' => 'The anchor tags provided by EZRentOut. Grab these values from EZRentOut.com admin page.'
       );
       woocommerce_wp_text_input( $args );
     }

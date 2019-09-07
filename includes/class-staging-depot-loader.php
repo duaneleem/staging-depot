@@ -65,7 +65,11 @@ class Staging_Depot_Loader {
 	 */
 	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
-	}
+
+		// EZRentOut
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/ezrentout/class-ezrentout-product-fields.php';
+		$this->actions = $this->add( $this->actions, "woocommerce_product_options_pricing", array("Wt_Static_Shortcodes", "homepage"), $callback, $priority, $accepted_args );
+	} // add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 )
 
 	/**
 	 * Add a new filter to the collection to be registered with WordPress.
