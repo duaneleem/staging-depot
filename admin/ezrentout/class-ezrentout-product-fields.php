@@ -87,6 +87,43 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Fields")) {
     }
 
     /**
+     * EZRentOut - EZR ID Custom Field
+     * Step 1: Display Text Field
+     */
+    public function add_field_ezr_id() {
+      $args = array(
+        'label' => 'EZR Anchor: ID', // Text in the label in the editor.
+        'placeholder' => '304', // Give examples or suggestions as placeholder
+        'class' => 'short',
+        'style' => '',
+        'wrapper_class' => '',
+        'id' => 'ezrentout_id', // required, will be used as meta_key
+        'type' => '',
+        'desc_tip' => false,
+        'data_type' => '',
+        'custom_attributes' => '', // array of attributes you want to pass 
+        'description' => 'Last digits from EZR anchor tags.'
+      );
+      woocommerce_wp_text_input( $args );
+    }
+
+    /**
+     * EZRentOut - EZR ID Custom Field
+     * Step 2: Save Field
+     */
+    public function save_field_ezr_id( $post_id ) {
+      // grab the SKU value
+      $content = isset( $_POST[ 'ezrentout_id' ] ) ? sanitize_text_field( $_POST[ 'ezrentout_id' ] ) : '';
+      
+      // grab the product
+      $product = wc_get_product( $post_id );
+      
+      // save the custom SKU meta field
+      $product->update_meta_data( 'ezrentout_id', $content );
+      $product->save();
+    }
+
+    /**
      * EZRentOut Add to Cart - Variations Custom Field
      * Step 1: Input Field
      */
@@ -127,6 +164,7 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Fields")) {
         'id' => 'ezrentout_variations_details[' . $loop . ']',
         'class' => 'short',
         'label' => __( 'EZRentOut Anchor: Details', 'woocommerce' ),
+        'placeholder' => 'Example: 304', // Give examples or suggestions as placeholder
         'value' => get_post_meta( $variation->ID, 'ezrentout_variations_details', true )
       );
       woocommerce_wp_text_input( $args );
@@ -149,6 +187,39 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Fields")) {
       $variations['ezrentout_variations_details'] = '<div class="woocommerce_custom_field">EZRentOut Details: <span>' . get_post_meta( $variations[ 'variation_id' ], 'ezrentout_variations_details', true ) . '</span></div>';
       return $variations;
     }
+
+    /**
+     * EZRentOut ID - Variations Custom Field
+     * Step 1: Input Field
+     */
+    public function add_variations_field_id($loop, $variation_data, $variation) {
+      $args = array(
+        'id' => 'ezrentout_variations_id[' . $loop . ']',
+        'class' => 'short',
+        'label' => __( 'EZRentOut Anchor: ID', 'woocommerce' ),
+        'description' => 'Last digits from EZR anchor tags.',
+        'value' => get_post_meta( $variation->ID, 'ezrentout_variations_id', true )
+      );
+      woocommerce_wp_text_input( $args );
+    } // add_variations_field_id($loop, $variation_data, $variation)
+
+    /**
+     * EZRentOut ID - Variations Custom Field
+     * Step 2: Save on product variation save.
+     */
+    public function save_variations_field_id( $variation_id, $i ) {
+      $custom_field = $_POST['ezrentout_variations_id'][$i];
+      if ( isset( $custom_field ) ) update_post_meta( $variation_id, 'ezrentout_variations_id', esc_attr( $custom_field ) );
+    } // save_variations_field_id( $variation_id, $i )
+
+    /**
+     * EZRentOut ID - Variations Custom Field
+     * Step 3: Store custom field value into variation data.
+     */
+    function add_custom_field_variations_field_id( $variations ) {
+      $variations['ezrentout_variations_id'] = '<div class="woocommerce_custom_field">EZRentOut ID: <span>' . get_post_meta( $variations[ 'variation_id' ], 'ezrentout_variations_details', true ) . '</span></div>';
+      return $variations;
+    } // add_custom_field_variations_field_id( $variations )
 
   } // Staging_Depot_EZRentOut_Product_Fields
 } // if (!class_exists("Staging_Depot_EZRentOut_Product_Fields"))

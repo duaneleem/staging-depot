@@ -176,6 +176,10 @@ class Staging_Depot {
 		$this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_add_to_cart");
 		$this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_add_to_cart");
 
+		// EZRentOut: ID in General Tab (Simple)
+		$this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_ezr_id");
+		$this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_ezr_id");
+
 		// EZRentOut: Details Custom Field in Variations Tab
 		$this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_details", 10, 3);
 		$this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_details", 10, 2);
@@ -185,6 +189,11 @@ class Staging_Depot {
 		$this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_add_to_cart", 10, 3);
 		$this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_add_to_cart", 10, 2);
 		$this->loader->add_action( "woocommerce_available_variation", $ezrentout_product_fields, "add_custom_field_variations_field_add_to_cart");
+
+		// EZRentOut: ID Custom Field in Variations Tab
+		$this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_id", 10, 3);
+		$this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_id", 10, 2);
+		$this->loader->add_action( "woocommerce_available_variation", $ezrentout_product_fields, "add_custom_field_variations_field_id");
 	}
 
 	/**
@@ -207,7 +216,7 @@ class Staging_Depot {
 
 		// EZRentOut Simple: WC to EZR Button
 		$this->loader->add_action( "woocommerce_single_product_summary", $ezrentout_product_buttons, "change_to_ezr_simple_button", 30);
-
+		$this->loader->add_action( "woocommerce_after_single_variation", $ezrentout_product_buttons, "change_to_ezr_variations_button", 30);
 
 		// EZRentOut Add to Cart: WC to EZR Button
 		
