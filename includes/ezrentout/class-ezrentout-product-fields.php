@@ -10,8 +10,8 @@
  * @subpackage Staging_Depot/includes/ezrentout
  */
 
-if (!class_exists("Staging_Depot_EZRentOut")) {
-  class Staging_Depot_EZRentOut {
+if (!class_exists("Staging_Depot_EZRentOut_Product_Fields")) {
+  class Staging_Depot_EZRentOut_Product_Fields {
     /**
      * EZRentOut Add to Cart Custom Field
      */
@@ -33,11 +33,7 @@ if (!class_exists("Staging_Depot_EZRentOut")) {
       );
       woocommerce_wp_text_input( $args );
     }
-  } // Staging_Depot_EZRentOut
-} // if (!class_exists("Staging_Depot_Product_Fields"))
+  } // Staging_Depot_EZRentOut_Product_Fields
+} // if (!class_exists("Staging_Depot_EZRentOut_Product_Fields"))
 
 // add_action( 'woocommerce_product_options_pricing', 'add_ezrentout_add_to_cart' );
-
-?>
-
-

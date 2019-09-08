@@ -121,6 +121,12 @@ class Staging_Depot {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-staging-depot-public.php';
+		
+		/**
+		 * EZRentOut Application
+		 */
+		// Add to Cart Button
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/ezrentout/class-ezrentout-product-fields.php';
 
 		$this->loader = new Staging_Depot_Loader();
 
@@ -156,6 +162,10 @@ class Staging_Depot {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		// EZRentOut: Add to Cart
+		$ezrentout_product_fields = new Staging_Depot_EZRentOut_Product_Fields();
+		$this->loader->add_action( "woocommerce_product_options_pricing", $ezrentout_product_fields, "add_field_add_to_cart");
 
 	}
 
