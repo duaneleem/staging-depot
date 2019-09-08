@@ -125,8 +125,10 @@ class Staging_Depot {
 		/**
 		 * EZRentOut Application
 		 */
-		// Add to Cart Button
+		// Admin Product Fields
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/ezrentout/class-ezrentout-product-fields.php';
+		// Front-End buttono changes.
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/ezrentout/class-ezrentout-product-buttons.php';
 
 		$this->loader = new Staging_Depot_Loader();
 
@@ -163,8 +165,10 @@ class Staging_Depot {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		// EZRentOut: Details in General Tab (Simple)
+		// EZR Main Functions
 		$ezrentout_product_fields = new Staging_Depot_EZRentOut_Product_Fields();
+		
+		// EZRentOut: Details in General Tab (Simple)
 		$this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_details");
 		$this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_details");
 
@@ -181,7 +185,6 @@ class Staging_Depot {
 		$this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_add_to_cart", 10, 3);
 		$this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_add_to_cart", 10, 2);
 		$this->loader->add_action( "woocommerce_available_variation", $ezrentout_product_fields, "add_custom_field_variations_field_add_to_cart");
-
 	}
 
 	/**
@@ -197,6 +200,15 @@ class Staging_Depot {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		// Define EZR button change functionality.
+		$ezrentout_product_buttons = new Staging_Depot_EZRentOut_Product_Buttons();
+
+		// EZRentOut Details: WC to EZR Button
+		
+
+
+		// EZRentOut Add to Cart: WC to EZR Button
 
 	}
 
