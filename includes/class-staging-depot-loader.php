@@ -127,3 +127,41 @@ class Staging_Depot_Loader {
 	}
 
 }
+
+class Staging_Depot_Loader_Extended extends Staging_Depot_Loader {
+	/**
+	 * The array of remove actions registered with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      array    $remove_actions    The remove actions registered with WordPress to fire when the plugin loads.
+	 */
+	protected $remove_actions;
+	
+	/**
+	 * Removes a WP action.
+	 * @param	 string		$tag									The action hook to which the function to be removed is hooked.
+	 * @param	 object		$function_to_remove		The name of the function which should be removed.
+	 * @param	 int			$priority							The priority of the function (as defined when the function was originally hooked).
+	 */
+	public function remove_action($tag, $function_to_remove, $priority = 10) {
+		$this->remove_actions = $this->remove_action( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
+	}
+
+	/**
+	 * Register the filters and actions with WordPress.
+	 *
+	 * @since    1.0.0
+	 */
+	public function run() {
+
+		foreach ( $this->filters as $hook ) {
+			add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+		}
+
+		foreach ( $this->actions as $hook ) {
+			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+		}
+
+	}
+}

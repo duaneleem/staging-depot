@@ -202,14 +202,15 @@ class Staging_Depot {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		// Define EZR button change functionality.
+		add_filter( 'woocommerce_is_purchasable', '__return_false'); // Disable WC Products
 		$ezrentout_product_buttons = new Staging_Depot_EZRentOut_Product_Buttons();
 
-		// EZRentOut Details: WC to EZR Button
-		
+		// EZRentOut Simple: WC to EZR Button
+		$this->loader->add_action( "woocommerce_single_product_summary", $ezrentout_product_buttons, "change_to_ezr_simple_button", 30);
 
 
 		// EZRentOut Add to Cart: WC to EZR Button
-
+		
 	}
 
 	/**
