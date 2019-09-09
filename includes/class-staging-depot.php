@@ -216,10 +216,12 @@ class Staging_Depot {
 
 		// EZRentOut Simple: WC to EZR Button
 		$this->loader->add_action( "woocommerce_single_product_summary", $ezrentout_product_buttons, "change_to_ezr_simple_button", 30);
-		$this->loader->add_action( "woocommerce_after_single_variation", $ezrentout_product_buttons, "change_to_ezr_variations_button", 30);
 
-		// EZRentOut Add to Cart: WC to EZR Button
-		
+		// NOT IN USE - EZRentOut Variations: WC to EZR Button
+		// Modifies: /plugins/woocommerce/templates/single-product/add-to-cart/variation.php
+		// $this->loader->add_filter("woocommerce_available_variation", $ezrentout_product_buttons, "custom_load_variation_settings_products_fields");
+		// $this->loader->add_action( "woocommerce_single_variation", $ezrentout_product_buttons, "change_to_ezr_variations_button", 30);
+
 	}
 
 	/**

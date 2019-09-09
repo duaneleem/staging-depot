@@ -33,6 +33,11 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
       }
     } // change_to_ezr_details_button()
 
+    public function custom_load_variation_settings_products_fields( $variations ) {
+      $variations['ezrentout_variations_id'] = get_post_meta( $variations[ 'variation_id' ], '_text_field', true );
+      return $variations;
+    }
+
     /**
      * EZR Variations: Changes variations button from WC to EZR.
      */
