@@ -26,8 +26,8 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
 
       // Formulate the EZRentOut Details button.
       if ($ezr_anchor_tag) {
-        echo "<div>
-          <a class='single_add_to_cart_button button' href='#_' id='" . $ezr_anchor_tag . "' onclick='ezrShowAssetDetails(" . $ezrID . ", this)' style='margin-bottom: 1.618em; margin-right: 14px;'>View Details</a>
+        echo "<div style='margin-bottom: 1em;'>
+          <a class='single_add_to_cart_button button' href='#_' id='" . $ezr_anchor_tag . "' onclick='ezrShowAssetDetails(" . $ezrID . ", this)' style='margin-right: 14px;'>View Details</a>
           <a class='single_add_to_cart_button button' id='" . $ezr_anchor_tag . "' onclick='ezrAddItemToCartDialog(" . $ezrID . ", this)' href='#_'>Add To Cart</a>
         </div>";
       }
