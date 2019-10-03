@@ -25,12 +25,22 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
       $ezrID = $product->get_meta( 'ezrentout_id' );
 
       // Formulate the EZRentOut Details button.
-      if ($ezr_anchor_tag) {
-        echo "<div style='margin-bottom: 1em;'>
-          <a class='single_add_to_cart_button button' href='#_' id='" . $ezr_anchor_tag . "' onclick='ezrShowAssetDetails(" . $ezrID . ", this)' style='margin-right: 14px;'>View Details</a>
-          <a class='single_add_to_cart_button button' id='" . $ezr_anchor_tag . "' onclick='ezrAddItemToCartDialog(" . $ezrID . ", this)' href='#_'>Add To Cart</a>
-        </div>";
-      }
+      //if ($ezr_anchor_tag) {
+        //echo "<div style='margin-bottom: 1em;'>
+          //<a class='single_add_to_cart_button button' href='#_' id='" . $ezr_anchor_tag . "' onclick='ezrShowAssetDetails(" . $ezrID . ", this)' style='margin-right: 14px;'>View Details</a>
+          //<a class='single_add_to_cart_button button' id='" . $ezr_anchor_tag . "' onclick='ezrAddItemToCartDialog(" . $ezrID . ", this)' href='#_'>Add To Cart</a>
+        //</div>";
+      //}
+
+      //Automatic generate add-to-cart button by using item title
+      $productName = $product->get_title();
+      $tagsHTML = "
+        <div style='margin-bottom: 1em;'>
+          <a class='single_add_to_cart_button button' onclick=\"ezrAddItemToCartByNameDialog('{$productName}', 'asset', this)\" href=\"#_\">Add To Cart</a>
+        </div>
+      ";
+
+      echo $tagsHTML;
     } // change_to_ezr_details_button()
 
     public function custom_load_variation_settings_products_fields( $variations ) {
