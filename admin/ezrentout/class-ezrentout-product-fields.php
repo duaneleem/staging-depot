@@ -124,6 +124,48 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Fields")) {
     }
 
     /**
+     * EZRentOut - Item Type, Select Single Item or Bundle
+     * Step 1: Display Select Field
+     */
+    public function add_field_ezr_item_type() {
+      $args = array(
+        'label' => 'EZR Item Type', // Text in the label in the editor.
+        'placeholder' => '304', // Give examples or suggestions as placeholder
+        'class' => 'short',
+        'style' => '',
+        'wrapper_class' => '',
+        'id' => 'ezrentout_item_type', // required, will be used as meta_key
+        'type' => '',
+        'desc_tip' => false,
+        'data_type' => '',
+        'custom_attributes' => '', // array of attributes you want to pass 
+        'description' => 'Select if the EZR ID is for a single item, or a bundle',
+        'options' => array(
+          ''   => __( '- Select -', 'woocommerce' ),
+          'item'   => __( 'Item', 'woocommerce' ),
+          'bundle'   => __( 'Bundle', 'woocommerce' )
+        )
+      );
+      woocommerce_wp_select( $args );
+    }
+
+    /**
+     * EZRentOut - Item Type, Select Single Item or Bundle
+     * Step 2: Save Field
+     */
+    public function save_field_ezr_item_type( $post_id ) {
+      // grab the select value
+      $content = isset( $_POST[ 'ezrentout_item_type' ] ) ? sanitize_text_field( $_POST[ 'ezrentout_item_type' ] ) : '';
+      
+      // grab the product
+      $product = wc_get_product( $post_id );
+      
+      // save the custom SKU meta field
+      $product->update_meta_data( 'ezrentout_item_type', $content );
+      $product->save();
+    }
+
+    /**
      * EZRentOut Add to Cart - Variations Custom Field
      * Step 1: Input Field
      */
