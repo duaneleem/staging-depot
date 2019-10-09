@@ -168,14 +168,6 @@ class Staging_Depot {
     // EZR Main Functions
     $ezrentout_product_fields = new Staging_Depot_EZRentOut_Product_Fields();
     
-    // EZRentOut: Details in General Tab (Simple)
-    $this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_details");
-    $this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_details");
-
-    // EZRentOut: Add to Cart in General Tab (Simple)
-    $this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_add_to_cart");
-    $this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_add_to_cart");
-
     // EZRentOut: ID in General Tab (Simple)
     $this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_ezr_id");
     $this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_ezr_id");
@@ -183,21 +175,6 @@ class Staging_Depot {
     // EZRentOut: Item Type in General Tab (Simple)
     $this->loader->add_action( "woocommerce_product_options_general_product_data", $ezrentout_product_fields, "add_field_ezr_item_type");
     $this->loader->add_action( "woocommerce_process_product_meta", $ezrentout_product_fields, "save_field_ezr_item_type");
-
-    // EZRentOut: Details Custom Field in Variations Tab
-    $this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_details", 10, 3);
-    $this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_details", 10, 2);
-    $this->loader->add_action( "woocommerce_available_variation", $ezrentout_product_fields, "add_custom_field_variations_field_details");
-
-    // EZRentOut: Add to Cart Custom Field in Variations Tab
-    $this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_add_to_cart", 10, 3);
-    $this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_add_to_cart", 10, 2);
-    $this->loader->add_action( "woocommerce_available_variation", $ezrentout_product_fields, "add_custom_field_variations_field_add_to_cart");
-
-    // EZRentOut: ID Custom Field in Variations Tab
-    $this->loader->add_action( "woocommerce_variation_options_pricing", $ezrentout_product_fields, "add_variations_field_id", 10, 3);
-    $this->loader->add_action( "woocommerce_save_product_variation", $ezrentout_product_fields, "save_variations_field_id", 10, 2);
-    $this->loader->add_action( "woocommerce_available_variation", $ezrentout_product_fields, "add_custom_field_variations_field_id");
   }
 
   /**
