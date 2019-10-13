@@ -21,15 +21,25 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
 
       // Grab which product is being viewed.
       $product = wc_get_product( $post->ID );
-      $ezr_anchor_tag = $product->get_meta( 'ezrentout_add_to_cart' );
+      $ezrItemType = $product->get_meta( 'ezrentout_item_type' );
       $ezrID = $product->get_meta( 'ezrentout_id' );
 
       // Formulate the EZRentOut Details button.
-      if ($ezr_anchor_tag) {
-        echo "<div style='margin-bottom: 1em;'>
-          <a class='single_add_to_cart_button button' href='#_' id='" . $ezr_anchor_tag . "' onclick='ezrShowAssetDetails(" . $ezrID . ", this)' style='margin-right: 14px;'>View Details</a>
-          <a class='single_add_to_cart_button button' id='" . $ezr_anchor_tag . "' onclick='ezrAddItemToCartDialog(" . $ezrID . ", this)' href='#_'>Add To Cart</a>
-        </div>";
+      $styleCSS = "margin-right: 14px;";
+      switch (strtolower($ezrItemType)) {
+      case "item":
+        $anchorTag_addToCart = "<a class='single_add_to_cart_button button' style='{$styleCSS}' id='ezr-cart-widget-item-{$ezrID}' onclick='ezrAddItemToCartDialog({$ezrID}, this)' href='#_'>Add To Cart</a>";
+        $anchorTag_calendar  = "<a class='single_add_to_cart_button button' style='{$styleCSS}' id='ezr-cart-widget-item-{$ezrID}' onclick='ezrLoadCalendarDialog({$ezrID}, this)' href='#_'>Availability Calendar</a>";
+        $anchorTag_details   = "<a class='single_add_to_cart_button button' style='{$styleCSS}' id='ezr-cart-widget-item-{$ezrID}' onclick='ezrShowAssetDetails({$ezrID}, this)' href='#_'>Item Detail</a>";
+        break;
+      case "bundle":
+        $anchorTag_addToCart = "<a class='single_add_to_cart_button button' style='{$styleCSS}' id='ezr-cart-widget-bundle-{$ezrID}' onclick='ezrAddBundleToCartDialog(\'{$ezrID}-b\', this)' href='#_'>Add To Cart</a>";
+        $anchorTag_calendar  = "";
+        $anchorTag_details   = "<a class='single_add_to_cart_button button' style='{$styleCSS}' id='ezr-cart-widget-bundle-{$ezrID}' onclick='ezrShowBundleDetails(\'{$ezrID}-b\', this)' href='#_'>Item Detail</a>";
+        break;
+      }
+      if ($ezrID) {
+        echo "<div style='margin-bottom: 1em;'>{$anchorTag_addToCart}{$anchorTag_calendar}{$anchorTag_details}</div>";
       }
     } // change_to_ezr_details_button()
 
@@ -38,25 +48,5 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
       return $variations;
     }
 
-    /**
-     * EZR Variations: Changes variations button from WC to EZR.
-     */
-    public function change_to_ezr_variations_button() {
-      global $post;
-
-      // Grab which product is being viewed.
-      $product = wc_get_product( $post->ID );
-      // $ezr_anchor_tag = $product->get_meta( 'ezrentout_add_to_cart' );
-      $ezr_anchor_tag = "test-1";
-      $ezrID = substr($ezr_anchor_tag, -1);
-
-      // Formulate the EZRentOut Details button.
-      if ($ezr_anchor_tag) {
-        echo "<div>
-          <a class='single_add_to_cart_button button' href='#_' id='" . $ezr_anchor_tag . "' onclick='ezrShowAssetDetails(" . $ezrID . ", this)' style='margin-bottom: 1.618em; margin-right: 14px;'>View Details</a>
-          <a class='single_add_to_cart_button button' id='" . $ezr_anchor_tag . "' onclick='ezrAddItemToCartDialog(" . $ezrID . ", this)' href='#_'>Add To Cart</a>
-        </div>";
-      }
-    } // change_to_ezr_add_to_cart_button()
   } // Staging_Depot_EZRentOut_Product_Buttons
 } // if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons"))
