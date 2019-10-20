@@ -24,6 +24,8 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
       $ezrItemType = $product->get_meta( 'ezrentout_item_type' );
       $ezrID = $product->get_meta( 'ezrentout_id' );
 
+      $headboardOffer = $product->get_attribute('headboard');
+
       // Formulate the EZRentOut Details button.
       $styleCSS = "margin-right: 14px;";
       switch (strtolower($ezrItemType)) {
@@ -40,6 +42,23 @@ if (!class_exists("Staging_Depot_EZRentOut_Product_Buttons")) {
       }
       if ($ezrID) {
         echo "<div style='margin-bottom: 1em;'>{$anchorTag_addToCart}{$anchorTag_calendar}{$anchorTag_details}</div>";
+      }
+
+      //this is just for debug purposes
+      echo "headboard offer: {$headboardOffer}<br/>";
+
+      //check if the headboard attribute is set, and if it is, lets get all the products that correspond.
+      if ($headboardOffer) {
+        $headboardOfferedProducts = wc_get_products(array('title' => $headboardOffer));
+
+        foreach ($headboardOfferedProducts as $hbKey => $hbProduct) {
+          $hbP_ezrItemType = $hbProduct->get_meta( 'ezrentout_item_type' );
+          //echo "<pre>" . print_r($hbProduct, true) . "</pre>";
+          //echo "<pre>" . print_r($hbP_ezrItemType, true) . "</pre>";
+          echo "<pre>" . print_r($hbProduct->id, true) . "</pre>";
+          echo "<pre>" . $hbP_ezrItemType . "</pre>";
+        }
+        //
       }
     } // change_to_ezr_details_button()
 
